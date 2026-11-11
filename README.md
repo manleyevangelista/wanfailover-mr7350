@@ -311,7 +311,7 @@ Logs auto-rotate at 1.5MB with 3 backup copies kept (`.1`,  `.2`,  `.3`).
 7. Verify that `wanfailover-mr7350.sh` permissions and owner are correct:
 
 ```
--rwxr-xr-x    1 root     root           649 Nov 11 17:52 wanfailover-mr7350`
+-rwxr-xr-x    1 root     root           649 Nov 11 17:52 wanfailover-mr7350
 ```
 
 7. If any is incorrect, then please refer to **Installing the script** section of this document
