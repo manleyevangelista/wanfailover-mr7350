@@ -142,7 +142,13 @@ COOLDOWN_AFTER_FAILOVER=30						# Prevent flapping
 INITIAL_DELAY=10							# Let DHCP settle at boot
 LOG_FILE="/var/log/wanfailover-mr7350.log"				# Current logfile
 MAX_LOG_SIZE_KB=1500							# Rotate when exceeding this size
+```
 
+**NOTE:** If you used the steps earlier to repurpose a LAN port as a secondary WAN, then you do not need to change the interface names. Though feel free to change the other settings. Especially the LED colors if you want different colors.
+
+## LED Light Configuration
+
+```
 # RGB status LED: turquoise = WAN, green = LAN4, red = no confirmed connection
 set_status_led() {
     local color="$1"
@@ -172,8 +178,6 @@ set_status_led() {
     esac
 }
 ```
-
-**NOTE:** If you used the steps earlier to repurpose a LAN port as a secondary WAN, then you do not need to change the interface names. Though feel free to change the other settings. Especially the LED colors if you want different colors.
 
 I had poked around the system files to locate the file that's responsible for controlling the LEDS, then experimented with it to see what other colors the router could produce. Though feel free to play around with the value to experiment with other colors, as there might be many more other color combinations listed below. 
 
