@@ -89,7 +89,7 @@ Log-out of SSH by typing `exit`. Then, while staying on Terminal, copy these fil
 
 **FOR EXAMPLE:** If your router's login is `root` and its IP address is `192.168.1.1`, then your commands should look like this.
 
-1. `scp <path to: wanfailover_monitor.sh> root>@192.268.1.1:/etc/"`
+1. `scp <path to: wanfailover_monitor.sh root>@192.268.1.1:/etc/"`
 2. `scp <path to: wanfailover-mr7350 root@192.168.1.1:/etc/init.d/"`
 
 Log-in to SSH again, then execute these commands.
@@ -102,7 +102,7 @@ Log-in to SSH again, then execute these commands.
 Append **sysupgrade.conf** to preserve script when upgrading OpenWRT.
 
 1. Type: `vi /etc/sysupgrade.conf`
-2. Press **E** on keyboard
+2. Press **I** on keyboard
 3. Type: `/etc/wanfailover_monitor.sh`
 4. Press **ENTER** to start a new line
 5. Type: `/etc/init.d/wanfailover-mr7350`
@@ -123,8 +123,8 @@ After that, reboot the router to verify that it works. Try to simulate a WAN fai
 
 ## Configuration
 
-1. In SSH, type: `vi /etc/wanfailver_monitor.sh`
-2. Press **E** on keyboard
+1. In SSH, type: `vi /etc/wanfailover_monitor.sh`
+2. Press **I** on keyboard
 3. Edit the configuration
 4. When done, press **ESC** on keyboard
 5. Type: `:wq` to save and quit
@@ -196,8 +196,8 @@ echo 0 > "$led_dir/red:status/brightness"
 **Green**
 
 ```
-echo 255 > "$led_dir/blue:status/brightness"
-echo 0 > "$led_dir/green:status/brightness"
+echo 0 > "$led_dir/blue:status/brightness"
+echo 255 > "$led_dir/green:status/brightness"
 echo 0 > "$led_dir/red:status/brightness"
 ```
 
@@ -255,7 +255,7 @@ Stop and disable **wanfailover-mr7350**.
 Edit **sysuprade.conf** to remove lines that preserves wanfailover-mr7350 when upgrading OpenWRT.
 
 1. Type: `vi /etc/sysupgrade.conf`
-2. Press **E** on keyboard
+2. Press **I** on keyboard
 3. Remove both '/etc/multi_wan_failover.sh` and `/etc/init.d/wanfailover-mr7350`
 4. Press **ESC** on keyboard
 5. Type: `:wq` to save and quit
