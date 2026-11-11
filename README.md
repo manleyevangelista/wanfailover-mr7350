@@ -87,10 +87,10 @@ Log-out of SSH by typing `exit`. Then, while staying on Terminal, copy these fil
 1. `scp <path to: wanfailover_monitor.sh> <username>@<MR7350's IP>:/etc/"`
 2. `scp <path to: wanfailover-mr7350 <username>@<MR7350's IP>:/etc/init.d/"`
 
-**FOR EXAMPLE:** If your router's login is `root` and its IP address is `192.168.1.1`, then your commands should look like this.
+**FOR EXAMPLE:** If you downloaded the two files to your Downloads folder on a Mac and your router's login is `root` and its IP address is `192.168.1.1`, then your commands should look like this.
 
-1. `scp <path to: wanfailover_monitor.sh root>@192.268.1.1:/etc/"`
-2. `scp <path to: wanfailover-mr7350 root@192.168.1.1:/etc/init.d/"`
+1. `scp /Users/<yourusername>/Downloads/wanfailover_monitor.sh root>@192.268.1.1:/etc/"`
+2. `scp /Users/<yourusername>/Downloads/wanfailover-mr7350 root@192.168.1.1:/etc/init.d/"`
 
 Log-in to SSH again, then execute these commands.
 
@@ -272,7 +272,7 @@ Edit **sysuprade.conf** to remove lines that preserves wanfailover-mr7350 when u
 3. Go to: **Network** > **Devices**
 4. Click **Unconfigure** on `lan4.10` or LAN4 VLAN
 5. Click **Configure...** on `br-lan`
-6. In **Bridge ports**, add `lan4`. Click Save
+6. In **Bridge ports**, add `lan4`. Click **Save**
 7. Click **Save & Apply**. 
 
 Last but not least, reboot the router. 
