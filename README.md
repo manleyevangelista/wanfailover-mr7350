@@ -22,17 +22,17 @@ For the description of this script, I will simply quote kekneus373. As this scri
 
 >This is a lightweight shell script that monitors your primary WAN interface and automatically fails over to a backup WAN when things go sideways. It was built out of necessity:  mwan3  [*"needs to be migrated/refactored to use nftables"*](https://forum.openwrt.org/t/mwan3-compatibility-in-openwrt-24-10/219952/2) for newer OpenWRT releases and isn't reliable in the meantime. This script fills that gap with no frills, no bloat, and no 800-line Lua packages.
 
-Tested this on my Linksys MR7350 router with Tailscale installed, and one of its LAN ports repurposed as a secondary WAN.
+Tested this on my Linksys MR7350 router with Tailscale installed, and one of its LAN ports repurposed as a backup WAN.
 
 ----------
 
 ##  What it does
 
--   Monitors a primary WAN (`wan`) and fails over to a secondary WAN (`lan4`)
+-   Monitors a primary WAN (`wan`) and fails over to a backup WAN (`lan4`)
 -   Health checks via ICMP ping to multiple targets (Google, Cloudflare, Cisco)
 -   **Requires failover after one failure:** Switches to backup as soon as the primary WAN is offline. Though this could be tweaked with higher number if flapping is an issue
--   Cycles the secondary WAN (`lan4`) using `ifdown` and `ifup` to ensure successful failover
--   Changes the router's LED, depending on the state of the failover. Can be tweaked to use different colors. (`Turquoise` = primary WAN, `Green` = secondary WAN, `Red` = both offline)
+-   Cycles the backup WAN (`lan4`) using `ifdown` and `ifup` to ensure successful failover
+-   Changes the router's LED, depending on the state of the failover. Can be tweaked to use different colors. (`Turquoise` = primary WAN, `Green` = backup WAN, `Red` = both offline)
 -   **Cooldown period**  after failover to prevent bouncing between links
 -   Automatically  **restores the primary**  when it recovers
 -   Detects and fixes UCI-disabled interfaces on the fly
@@ -47,9 +47,9 @@ Tested this on my Linksys MR7350 router with Tailscale installed, and one of its
 -   Root access (the script checks for this)
 -   Two WAN interfaces configured in  `/etc/config/network`
 
-## Configuring secondary WAN
+## Configuring backup WAN
 
-By default, the Linksys MR7350 only has one designated WAN port. However, we could repurpose one of the LAN ports to serve as secondary WAN. 
+By default, the Linksys MR7350 only has one designated WAN port. However, we could repurpose one of the LAN ports to serve as backup WAN. 
 
 These are the steps for OpenWRT 25.12.x (25.12.6). Steps may differ on future versions. 
 
@@ -144,7 +144,7 @@ LOG_FILE="/var/log/wanfailover-mr7350.log"				# Current logfile
 MAX_LOG_SIZE_KB=1500							# Rotate when exceeding this size
 ```
 
-**NOTE:** If you used the steps earlier to repurpose a LAN port as a secondary WAN, then you do not need to change the interface names. Though feel free to change the other settings. Especially the LED colors if you want different colors.
+**NOTE:** If you used the steps earlier to repurpose a LAN port as a backup WAN, then you do not need to change the interface names. Though feel free to change the other settings. Especially the LED colors if you want different colors.
 
 ## LED Light Configuration
 
@@ -269,7 +269,7 @@ Edit **sysuprade.conf** to remove lines that preserves wanfailover-mr7350 when u
 1. `apk del bash` (removes bash)
 2. `apk del jq` (removes jq)
 
-**Optional:** Revert the secondary WAN as LAN again.
+**Optional:** Revert the backup WAN as LAN again.
 
 1. In OpenWRT, go to: **Network** > **Interfaces**
 2. Click **Delete** on both `lan4` and `lan46`
